@@ -2,6 +2,15 @@ from flask.ext.restful import Resource
 from flask.ext.restful.reqparse import RequestParser
 
 
+class BusConfig(Resource):
+
+    def get(self):
+        return {
+            'i2c': '1',
+            'status': 'online',
+            }
+
+
 class FetchRange(Resource):
 
     def get(self):

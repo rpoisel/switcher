@@ -9,7 +9,7 @@ from flask import Flask  # , request, render_template
 from flask.ext.restful import Api
 
 #from rangemanager import RangeManager
-from resources import FetchRange, Report, Progress, Reset
+from resources import BusConfig, FetchRange, Report, Progress, Reset
 #from namespaces import PushNamespace
 
 
@@ -29,8 +29,9 @@ def main():
 #        PushNamespace.sModel = lModel
 
         # routes
-        lApp.add_url_rule('/',                      'poll', poll)
+        #lApp.add_url_rule('/',                      'poll', poll)
 #        lApp.add_url_rule('/socket.io/<path:path>', 'socket.io', run_socketio)
+        lApi.add_resource(BusConfig,               '/')
         lApi.add_resource(FetchRange,               '/fetch')
         lApi.add_resource(Report,                   '/report')
         lApi.add_resource(Progress,                 '/progress')
