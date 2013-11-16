@@ -9,7 +9,7 @@ from flask import Flask  # , request, render_template
 from flask.ext.restful import Api
 
 #from rangemanager import RangeManager
-from resources import BusConfig, FetchRange, Report, Progress, Reset
+from resources import BusConfig, Set, Get, Dump, Detect
 #from namespaces import PushNamespace
 
 
@@ -31,18 +31,19 @@ def main():
         # routes
         #lApp.add_url_rule('/',                      'poll', poll)
 #        lApp.add_url_rule('/socket.io/<path:path>', 'socket.io', run_socketio)
+
         lApi.add_resource(BusConfig,               '/')
-        lApi.add_resource(FetchRange,               '/fetch')
-        lApi.add_resource(Report,                   '/report')
-        lApi.add_resource(Progress,                 '/progress')
-        lApi.add_resource(Reset,                    '/reset')
+        lApi.add_resource(Set,                     '/set')
+        lApi.add_resource(Get,                     '/get')
+        lApi.add_resource(Dump,                    '/dump')
+        lApi.add_resource(Detect,                  '/detect')
 
         # go
 #        lApp = SharedDataMiddleware(lApp, {})
         lServer = SocketIOServer(
             ('0.0.0.0', 5000),
             lApp,
-            namespace="socket.io",
+            resource="socket.io",
             policy_server=False)
         lServer.serve_forever()
     except IndexError:
