@@ -66,20 +66,32 @@ class Set(Resource):
         self.__mParser = RequestParser()
         self.__mParser.add_argument('bus_id', type=str, required=True)
         self.__mParser.add_argument('address', type=int, required=True)
-        self.__mParser.add_argument('cmd', type=int, required=True)
         self.__mParser.add_argument('value', type=int, required=True)
+        self.__mParser.add_argument('cmd', type=int)
 
     def get(self):
+        lStatus = 'ok'
         lArgs = self.__mParser.parse_args()
         lBusId = lArgs['bus_id']
-        lAddress = lArgs['address']
-        lCommand = lArgs['cmd']
-        lValue = lArgs['value']
+        lAddress = int(lArgs['address'], 0)
+        lValue = int(lArgs['value'], 0)
+        lBus = SMBus(lBusId)
+
+        try:
+            if lArgs['cmd'] is None:
+                lBus.write_byte(lAddress, lValue)
+            else:
+                lCommand = int(lArgs['cmd'], 0)
+                lBus.write_byte_data(lAddress, lCommand, lValue)
+        except IOError, pExc:
+            lStatus = "Error writing data: " + str(pExc)
+
         return {
             'bus_id': lBusId,
             'address': lAddress,
             'cmd': lCommand,
-            'value': lValue
+            'value': lValue,
+            'status': lStatus
             }
 
 
