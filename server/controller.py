@@ -9,7 +9,7 @@ from flask import Flask, render_template  # , request
 from flask.ext.restful import Api
 
 #from rangemanager import RangeManager
-from resources import BusConfig, Set, Get, Dump, Detect
+from resources import Busses, Set, Get, Dump, Detect
 #from namespaces import PushNamespace
 
 
@@ -32,7 +32,7 @@ def main():
         lApp.add_url_rule('/',              'start', start)
 #        lApp.add_url_rule('/socket.io/<path:path>', 'socket.io', run_socketio)
 
-        lApi.add_resource(BusConfig,        '/busconfig')
+        lApi.add_resource(Busses,        '/busses')
         lApi.add_resource(Set,              '/set')
         lApi.add_resource(Get,              '/get')
         lApi.add_resource(Dump,             '/dump')

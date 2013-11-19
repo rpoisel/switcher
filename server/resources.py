@@ -6,7 +6,7 @@ from flask.ext.restful.reqparse import RequestParser
 from smbus import SMBus
 
 
-class BusConfig(Resource):
+class Busses(Resource):
 
     def get(self):
         lDevFiles = os.listdir('/dev')
