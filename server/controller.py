@@ -5,7 +5,7 @@ from gevent import monkey
 from socketio.server import SocketIOServer
 #from werkzeug.wsgi import SharedDataMiddleware
 
-from flask import Flask  # , request, render_template
+from flask import Flask, render_template  # , request
 from flask.ext.restful import Api
 
 #from rangemanager import RangeManager
@@ -28,15 +28,15 @@ def main():
 #        Reset.sModel = lModel
 #        PushNamespace.sModel = lModel
 
-        # routes
-        #lApp.add_url_rule('/',                      'poll', poll)
+        #  routes
+        lApp.add_url_rule('/',              'start', start)
 #        lApp.add_url_rule('/socket.io/<path:path>', 'socket.io', run_socketio)
 
-        lApi.add_resource(BusConfig,               '/')
-        lApi.add_resource(Set,                     '/set')
-        lApi.add_resource(Get,                     '/get')
-        lApi.add_resource(Dump,                    '/dump')
-        lApi.add_resource(Detect,                  '/detect')
+        lApi.add_resource(BusConfig,        '/busconfig')
+        lApi.add_resource(Set,              '/set')
+        lApi.add_resource(Get,              '/get')
+        lApi.add_resource(Dump,             '/dump')
+        lApi.add_resource(Detect,           '/detect')
 
         # go
 #        lApp = SharedDataMiddleware(lApp, {})
@@ -53,9 +53,8 @@ def main():
         lServer.stop()
 
 
-def poll():
-    return ""
-#    return render_template('progress.html')
+def start():
+    return render_template('start.html')
 
 
 #def run_socketio(path):
