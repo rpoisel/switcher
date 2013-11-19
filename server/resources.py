@@ -28,7 +28,7 @@ class Get(Resource):
     def __init__(self):
         super(Get, self).__init__()
         self.__mParser = RequestParser()
-        self.__mParser.add_argument('bus_id', type=int, required=True)
+        self.__mParser.add_argument('bus_id', type=str, required=True)
         self.__mParser.add_argument('address', type=str, required=True)
         self.__mParser.add_argument('cmd', type=str)
 
@@ -37,7 +37,7 @@ class Get(Resource):
         lCommand = ""
         lValue = ""
         lArgs = self.__mParser.parse_args()
-        lBusId = lArgs['bus_id']
+        lBusId = int(lArgs['bus_id'], 0)
         lBus = SMBus(lBusId)
 
         lAddress = int(lArgs['address'], 0)
@@ -65,14 +65,14 @@ class Set(Resource):
         super(Set, self).__init__()
         self.__mParser = RequestParser()
         self.__mParser.add_argument('bus_id', type=str, required=True)
-        self.__mParser.add_argument('address', type=int, required=True)
-        self.__mParser.add_argument('value', type=int, required=True)
-        self.__mParser.add_argument('cmd', type=int)
+        self.__mParser.add_argument('address', type=str, required=True)
+        self.__mParser.add_argument('value', type=str, required=True)
+        self.__mParser.add_argument('cmd', type=str)
 
     def get(self):
         lStatus = 'ok'
         lArgs = self.__mParser.parse_args()
-        lBusId = lArgs['bus_id']
+        lBusId = int(lArgs['bus_id'], 0)
         lAddress = int(lArgs['address'], 0)
         lValue = int(lArgs['value'], 0)
         lBus = SMBus(lBusId)
