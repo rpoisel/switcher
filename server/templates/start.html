@@ -7,13 +7,54 @@
 
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="/static/css/i2c.css" />
+        <style type="text/css" title="currentStyle">
+            @import "static/css/demo_table.css";
+        </style>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script type="text/javascript" src="static/js/jquery.min.js"></script>
+        <script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+        <!-- <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
         <!-- <script type="text/javascript" src="/static/js/socket.io.js"></script> -->
         <!-- <script type="text/javascript" src="/static/js/progress.js"></script> -->
+        <script type="text/javascript">
+        /* Global var for counter */
+        var giCount = 1;
+
+        $(document).ready(function() {
+                $('#example').dataTable();
+                } );
+
+        function fnClickAddRow() {
+            $('#example').dataTable().fnAddData( [
+                giCount+".1",
+                giCount+".2",
+                giCount+".3",
+                giCount+".4" ] );
+
+        giCount++;
+}
+        </script>
     </head>
     <body>
         <h1 class="entry-title">I<sup>2</sup>C Web Interface</h1>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                    <th>Column 3</th>
+                    <th>Column 4</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>allan</td>
+                <td>allan</td>
+                <td>allan</td>
+                <td>allan</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a href="javascript:void(0);" onclick="fnClickAddRow();">Click to add a new row</a></p>
     </body>
 </html>
