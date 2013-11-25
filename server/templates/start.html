@@ -21,7 +21,11 @@
         var giCount = 1;
 
         $(document).ready(function() {
-                $('#example').dataTable();
+                $('#example').dataTable(
+                    {
+                        "bFilter": false // hide search box
+                    }
+                    );
                 } );
 
         function fnClickAddRow() {
