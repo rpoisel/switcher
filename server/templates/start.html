@@ -17,27 +17,34 @@
         <!-- <script type="text/javascript" src="/static/js/socket.io.js"></script> -->
         <!-- <script type="text/javascript" src="/static/js/progress.js"></script> -->
         <script type="text/javascript">
-        /* Global var for counter */
-        var giCount = 1;
 
-        $(document).ready(function() {
+        $(document).ready(function()
+            {
+                /* load data table */
                 $('#example').dataTable(
                     {
                         "bFilter": false, // hide search box
                         "bPaginate": false, // all rows on one page
                         "bInfo": false
                     }
-                    );
-                } );
+                );
 
-        function fnClickAddRow() {
-            $('#example').dataTable().fnAddData( [
-                giCount+".1",
-                giCount+".2",
-                giCount+".3" ] );
-
-        giCount++;
-}
+                /* trigger ajax request for config data */
+                $.ajax(
+                    {
+                        url: "/ioconfig",
+                    }
+                ).done(function(data)
+                    {
+                        /* populate table with obtained config data */
+                        for (var i = 0; i < data.length; i++)
+                        {
+                            $('#example').dataTable().fnAddData(data[i]);
+                        }
+                    }
+                );
+            }
+        );
         </script>
     </head>
     <body>
@@ -46,14 +53,17 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Bus</th>
+                    <th>Address</th>
+                    <th>Command</th>
                     <th>Current State</th>
-                    <th>Set State</th>
+                    <!-- <th>Set State</th> -->
                 </tr>
             </thead>
             <tbody>
             <!-- rows for each output go here -->
             </tbody>
         </table>
-        <p><a href="javascript:void(0);" onclick="fnClickAddRow();">Click to add a new row</a></p>
+        <!-- <p><a href="javascript:void(0);" onclick="fnClickAddRow();">Click to add a new row</a></p> -->
     </body>
 </html>

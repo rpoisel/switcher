@@ -1,4 +1,7 @@
 import os
+from os.path import join
+
+from json import loads
 
 from flask.ext.restful import Resource
 from flask.ext.restful.reqparse import RequestParser
@@ -21,6 +24,19 @@ class Busses(Resource):
                 #'status': 'online',
                 }
             }
+
+
+class IOConfig(Resource):
+
+    def __init__(self):
+        super(IOConfig, self).__init__()
+
+    def get(self):
+        try:
+            with file(join("..", "config", 'io.json')) as lFH:
+                return loads(lFH.read())
+        except IOError:
+            return []
 
 
 class Get(Resource):
